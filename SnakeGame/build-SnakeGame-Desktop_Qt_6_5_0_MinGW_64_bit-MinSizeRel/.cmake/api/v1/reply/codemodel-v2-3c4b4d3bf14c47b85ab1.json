@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-MinSizeRel-a1f2bd3ac4ae870147a7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "MinSizeRel",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "SnakeGame",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "SnakeGame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SnakeGame-MinSizeRel-d48f57ccb356f7cafb3a.json",
+					"name" : "SnakeGame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SnakeGame_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SnakeGame_autogen-MinSizeRel-47225bbc9a87bf640adf.json",
+					"name" : "SnakeGame_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SnakeGame_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SnakeGame_autogen_timestamp_deps-MinSizeRel-26c4d213ae33da79c3d2.json",
+					"name" : "SnakeGame_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/WorkSpace/SnakeGame/build-SnakeGame-Desktop_Qt_6_5_0_MinGW_64_bit-MinSizeRel",
+		"source" : "D:/WorkSpace/SnakeGame/SnakeGame"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}
