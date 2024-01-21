@@ -25,7 +25,7 @@ The `SnakeGame` class manages the graphical representation of the game using the
 
 1. Navigate to the Qt source folder containing all the source files.
 2. Build the `Snaky` library for non-Qt implementations if needed.
-3. Build and run the Qt application using the provided `main` function in `Snake-Game/main.cpp`.
+3. Build and run the Qt application using the provided `main` function in `SnakeGame/SnakeGame/main.cpp`.
 
 ## Cross-Platform Compatibility
 
