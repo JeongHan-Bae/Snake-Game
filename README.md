@@ -22,7 +22,7 @@ void getSnakePositions(int*& positionsArray, int& arrayLength) const {
 }
 ```
 
-This method provides an easier way to access snake positions. However, it has a complexity of O(n), where n is the length of the snake. It is recommended that users avoid using `getSnakePositions` for optimal performance. Instead, users can create a linked list in the front end to store the positions. By adding the head position each time the snake moves and removing the end (tail) when the snake moves, users can efficiently manage the snake's position with O(1) complexity, utilizing the background to replace the tail and making minimal changes with the head, previous head, tail, and apple.
+This method provides an easier way to access snake positions. However, it has a complexity of $O(n)$, where n is the length of the snake. It is recommended that users avoid using `getSnakePositions` for optimal performance. Instead, users can create a linked list in the front end to store the positions. By adding the head position each time the snake moves and removing the end (tail) when the snake not reaching an apple, users can efficiently manage the snake's position with O(1) complexity, utilizing the background to replace the tail and making minimal changes with the head, previous head, tail, and apple.
 
 ## SnakeGame Qt Visualization
 
