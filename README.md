@@ -13,7 +13,7 @@ Users need not worry about optional time complexity improvements. If $O(n)$ is a
 
 ## Snaky Library
 
-The `Snaky` library contains the game logic and is conveniently included within the Qt source folder. For non-Qt implementations, a dynamic link library (DLL) version is available at `Snake-Game/Snaky/cmake-build-debug/libSnaky.dll`. The library includes the following files:
+The `Snaky` library contains the game logic and is conveniently included within the Qt source folder. For non-Qt implementations, a dynamic link library (DLL) version is available at `Snake-Game/Snaky/libSnaky.dll`. The library includes the following files:
 
 - `Snaky/Snaky.h`: Header file with the `Snaky` class declaration.
 - `Snaky/SnakyImpl.cpp` and `Snaky/SnakyImpl.h`: Implementation files for the `Snaky` class.
