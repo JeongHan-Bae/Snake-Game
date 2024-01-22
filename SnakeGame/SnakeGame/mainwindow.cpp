@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget* parent)
     setWindowIcon(appIcon);
 
     // Initialize the 2D array of frames
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 6; ++j) {
+    for (int i = 0; i < BoardSIZE; ++i) {
+        for (int j = 0; j < BoardSIZE; ++j) {
             frames[j][i] =
                 findChild<QFrame*>(QString("frame%1%2").arg(i).arg(j));
         }
@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow() { delete ui; }
 // update by color and text
 void MainWindow::ChangeColor(int i, int j, QColor color, const QString& text) {
-    if (i >= 0 && i < 6 && j >= 0 && j < 6) {
+    if (i >= 0 && i < BoardSIZE && j >= 0 && j < BoardSIZE) {
         frames[i][j]->setStyleSheet(
             QString("background-color: %1").arg(color.name()));
         // If you have QLabel in the frame, set its text
@@ -36,8 +36,8 @@ void MainWindow::ChangeColor(int i, int j, QColor color, const QString& text) {
 
 // Initial function to set "void" to all frames
 void MainWindow::initializeTable() {
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 6; ++j) {
+    for (int i = 0; i < BoardSIZE; ++i) {
+        for (int j = 0; j < BoardSIZE; ++j) {
             ChangeColor(i, j, Qt::black, "");
         }
     }

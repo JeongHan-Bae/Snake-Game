@@ -5,6 +5,10 @@
 #include <QLabel>
 #include <QMainWindow>
 
+#define BoardSIZE 6
+#define PERIODE 500
+const int FontSIZE = 512 / BoardSIZE;
+
 namespace Ui {
 class MainWindow;
 }
@@ -26,7 +30,7 @@ private:
     QFont labelFont;
 
     // 2D array of frames
-    QFrame* frames[6][6];
+    QFrame* frames[BoardSIZE][BoardSIZE];
 };
 
 #endif // MAINWINDOW_H

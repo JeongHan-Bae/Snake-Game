@@ -14,10 +14,6 @@
 #include <iostream>
 #include <utility>
 
-#define BoardSIZE 6
-#define PERIODE 512
-const int FontSIZE = 500 / BoardSIZE;
-
 QList<std::pair<int, int>> snakeList;
 
 class SnakeGame : public MainWindow {
