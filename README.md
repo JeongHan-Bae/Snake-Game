@@ -13,6 +13,17 @@ The `Snaky` library encapsulates the game logic and is conveniently included wit
 
 The `Snaky` class represents the core game logic and includes methods for controlling the snake's movement, retrieving positions, and handling the game's state. Notable members include static constants for cardinal directions and methods such as `turn`, `nextStep`, and `getSnakePositions`.
 
+All backend realizations in the `Snaky` library are of $O(1)$ complexity, except for the method:
+
+```cpp
+void getSnakePositions(int*& positionsArray, int& arrayLength) const {
+    // Call an appropriate method in SnakyImpl to get snake positions
+    impl.getSnakePositions(positionsArray, arrayLength);
+}
+```
+
+This method provides an easier way to access snake positions. However, it has a complexity of $O(n)$, where n is the length of the snake. It is recommended that users avoid using `getSnakePositions` for optimal performance. Instead, users can create a linked list in the front end to store the positions. By adding the head position each time the snake moves and removing the end (`tail`) when the snake not reaching an apple, users can efficiently manage the snake's position with $O(1)$ complexity, utilizing the background to replace the tail and making minimal changes with the head, previous head, tail, and apple.
+
 ## SnakeGame Qt Visualization
 
 The Qt visualization of the Snake game is provided in the `SnakeGame` folder. The main application is implemented in the `SnakeGame` class, extending `QGraphicsView`. Key features include handling user input, updating the game state, and displaying the game using the Qt framework.
@@ -25,7 +36,7 @@ The `SnakeGame` class manages the graphical representation of the game using the
 
 1. Navigate to the Qt source folder containing all the source files.
 2. Build the `Snaky` library for non-Qt implementations if needed.
-3. Build and run the Qt application using the provided `main` function in `Snake-Game/main.cpp`.
+3. Build and run the Qt application using the provided `main` function in `SnakeGame/SnakeGame/main.cpp`.
 
 ## Cross-Platform Compatibility
 
