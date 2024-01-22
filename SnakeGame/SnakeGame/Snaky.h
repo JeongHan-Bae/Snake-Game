@@ -4,10 +4,10 @@
 
 class Snaky {
 public:
-    static const std::pair<int, int> EAST;
-    static const std::pair<int, int> WEST;
-    static const std::pair<int, int> NORTH;
-    static const std::pair<int, int> SOUTH;
+    constexpr static const std::pair<int, int> EAST= {1, 0};
+    constexpr static const std::pair<int, int> WEST = {-1, 0};
+    constexpr static const std::pair<int, int> NORTH = {0, -1};
+    constexpr static const std::pair<int, int> SOUTH = {0, 1};
 
 private:
     SnakyImpl impl;
@@ -15,7 +15,7 @@ private:
 public:
     Snaky(int initialX, int initialY, int size,
           const std::pair<int, int>& initialDirection)
-            : impl(initialX, initialY, size, initialDirection) {}
+        : impl(initialX, initialY, size, initialDirection) {}
 
     bool turn(const std::pair<int, int>& newDirection) {
         return impl.turn(newDirection);
@@ -36,15 +36,7 @@ public:
         impl.getSnakePositions(positionsArray, arrayLength);
     }
 
-    Snaky& operator=(const Snaky& other) {
-        this->impl = other.impl;
-        return *this;
-    }
+    Snaky& operator=(const Snaky& other) = default;
 
     ~Snaky() = default;
 };
-
-const std::pair<int, int> Snaky::EAST = {1, 0};
-const std::pair<int, int> Snaky::WEST = {-1, 0};
-const std::pair<int, int> Snaky::NORTH = {0, -1};
-const std::pair<int, int> Snaky::SOUTH = {0, 1};

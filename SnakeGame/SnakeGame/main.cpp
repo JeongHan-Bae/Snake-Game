@@ -1,4 +1,6 @@
 #include "Snaky.h"
+#include "mainwindow.h"
+
 #include <QApplication>
 #include <QFont>
 #include <QGraphicsScene>
@@ -9,178 +11,147 @@
 #include <QTimer>
 #include <iostream>
 
+#include <iostream>
+#include <utility>
+
 #define BoardSIZE 6
 #define PERIODE 512
 const int FontSIZE = 500 / BoardSIZE;
 
-class SnakeGame : public QGraphicsView {
+QList<std::pair<int, int>> snakeList;
+
+class SnakeGame : public MainWindow {
 
 public:
     SnakeGame(QWidget* parent = nullptr)
-        : QGraphicsView(parent), snakeGame(0, 0, BoardSIZE, Snaky::EAST) {
-        scene = new QGraphicsScene(this);
-        setScene(scene);
+        : MainWindow(parent), snakeGame(0, 0, BoardSIZE, Snaky::EAST) {
 
         timer = new QTimer(this);
         connect(timer, &QTimer::timeout, this, &SnakeGame::update);
         timer->start(PERIODE);
 
-        // Initialize block size
         blockSize = FontSIZE;
 
         direction = Snaky::EAST;
 
-        // Add initial items to the scene based on your SnakeBackend state
-        initializeScene();
+        snakeList.clear();
+        // clean the previous list
 
-        setFocusPolicy(Qt::StrongFocus);
+        initializeGame();
+        // Call the initializeGame function to initialise the board
     }
 
 protected:
     void keyPressEvent(QKeyEvent* event) override {
-        // Handle key presses and update SnakeBackend accordingly
         int key = event->key();
         if (event->key() == Qt::Key_Space)
             startGame();
+        // restart the game
         else if (key == Qt::Key_Up)
-            handleInput(Snaky::NORTH);
+            newDirection = Snaky::NORTH;
         else if (key == Qt::Key_Down)
-            handleInput(Snaky::SOUTH);
+            newDirection = Snaky::SOUTH;
         else if (key == Qt::Key_Left)
-            handleInput(Snaky::WEST);
+            newDirection = Snaky::WEST;
         else if (key == Qt::Key_Right)
-            handleInput(Snaky::EAST);
+            newDirection = Snaky::EAST;
+        // Store newDirection but not update Immediately
     }
 
     void update() {
-        // Move the snake
+
+        if (snakeGame.turn(newDirection))
+            direction = newDirection;
+        // update the last input direction
+
         MoveResult result = snakeGame.nextStep();
 
-        // Handle different move results
+        // snake move
+
         if (result == MoveResult::WALL) {
-            // Handle hitting the wall
             showGameOverMessage("Hit wall! Game over!");
         } else if (result == MoveResult::SELF) {
-            // Handle biting yourself
             showGameOverMessage("Bit yourself! Game over!");
         } else if (result == MoveResult::WIN) {
-            // Handle winning the game
             showGameOverMessage("Congratulations! You win!");
+        } else if (result == MoveResult::VOID) {
+            drawVoid(snakeList.last());
+            snakeList.removeLast();
+            // remove the previous tail
+        } else {
+            // apple eaten, get the new pos
+            drawApple(snakeGame.getApplePosition());
         }
+        if (!snakeList.isEmpty())
+            drawBody(snakeList.first());
 
-        // Redraw the scene based on the updated SnakeBackend state
-        drawScene();
+        snakeList.prepend(snakeGame.getHeadPosition());
+        drawHead(snakeList.first());
+        // draw the new head
     }
+
     void resetGame() {
-        Snaky newGame = Snaky(0, 0, BoardSIZE, Snaky::EAST);
-        snakeGame = newGame;
+        snakeGame = Snaky(0, 0, BoardSIZE, Snaky::EAST);
         direction = Snaky::EAST;
-        initializeScene();
+        newDirection = Snaky::EAST;
+        snakeList.clear();
+        initializeGame();
     }
+
     void startGame() {
         resetGame();
         // Start the game timer and set isGameActive to true
         timer->start(PERIODE);
 
         // Initialize the scene and show the game
-        initializeScene();
+        initializeGame();
+        snakeList.removeLast();
         show();
     }
 
 private:
-    QGraphicsScene* scene;
     QTimer* timer;
     Snaky snakeGame;
     std::pair<int, int> direction;
-    int blockSize; // Size of each block in pixels
+    std::pair<int, int> newDirection = Snaky::EAST;
+    int blockSize;
 
-    void initializeScene() { drawScene(); }
-
-    void drawScene() {
-        // Clear the scene
-        scene->clear();
-
-        // Draw the cells
-        for (int i = 0; i < BoardSIZE; ++i) {
-            for (int j = 0; j < BoardSIZE; ++j) {
-                QGraphicsTextItem* cell = new QGraphicsTextItem();
-                cell->setPos(i * blockSize, j * blockSize);
-                cell->setFont(QFont("Arial", FontSIZE, QFont::Bold));
-
-                // Retrieve the state of the cell from SnakeBackend and set the
-                // text and color accordingly
-                if (std::make_pair(i, j) == snakeGame.getHeadPosition()) {
-                    // Set text and color for the head (yellow)
-                    QString head;
-                    if (direction == Snaky::EAST) {
-                        head = "> ";
-                    } else if (direction == Snaky::WEST) {
-                        head = "< ";
-                    } else if (direction == Snaky::NORTH) {
-                        head = "^ ";
-                    } else {
-                        head = "v ";
-                    }
-                    cell->setPlainText(head);
-                    cell->setDefaultTextColor(Qt::yellow);
-                } else {
-                    // Check if the cell is an apple
-                    std::pair<int, int> applePosition =
-                        snakeGame.getApplePosition();
-                    if (std::make_pair(i, j) == applePosition) {
-                        // Set text and color for the apple (red)
-                        cell->setPlainText("■ ");
-                        cell->setDefaultTextColor(Qt::red);
-                    } else {
-                        // Check if the cell is part of the snake body
-                        bool isBodyPart = false;
-                        int doubleLength;
-                        int* snakePositions;
-                        snakeGame.getSnakePositions(snakePositions,
-                                                    doubleLength);
-
-                        for (int k = 0; k < doubleLength / 2; ++k) {
-                            if (std::make_pair(i, j) ==
-                                std::make_pair(snakePositions[2 * k],
-                                               snakePositions[2 * k + 1])) {
-                                // Set text and color for the body (green)
-                                cell->setPlainText("■ ");
-                                cell->setDefaultTextColor(Qt::green);
-                                isBodyPart = true;
-                                break;
-                            }
-                        }
-
-                        if (!isBodyPart) {
-                            // Set text and color for the background (black)
-                            cell->setPlainText("■ ");
-                            cell->setDefaultTextColor(Qt::black);
-                        }
-                    }
-                }
-
-                // Add the cell to the scene
-                scene->addItem(cell);
-            }
-        }
+    void initializeGame() {
+        initializeTable(); // Call the initializeTable function from MainWindow
+        drawApple(snakeGame.getApplePosition());
+        snakeList.prepend(snakeGame.getHeadPosition());
+        drawHead(snakeList.first());
     }
 
-    void handleInput(const std::pair<int, int>& newDirection) {
-        // Update the game state based on user input
-        if (snakeGame.turn(newDirection)) {
-            // Update direction only if the turn is valid
-            direction = newDirection;
-        }
-        drawScene();
+    void drawHead(std::pair<int, int> headPos) {
+        // Set text and color for the head (yellow)
+        QString headtext;
+        if (direction == Snaky::EAST)
+            headtext = " :<";
+        else if (direction == Snaky::WEST)
+            headtext = ">: ";
+        else if (direction == Snaky::NORTH)
+            headtext = " .v.";
+        else
+            headtext = "'^'";
+
+        ChangeColor(headPos.first, headPos.second, Qt::yellow, headtext);
     }
 
-    // Modify the showGameOverMessage function to call restartGame when the
-    // space key is pressed
+    void drawBody(std::pair<int, int> bodyPos) {
+        ChangeColor(bodyPos.first, bodyPos.second, Qt::green, "");
+    }
+
+    void drawApple(std::pair<int, int> applPos) {
+        ChangeColor(applPos.first, applPos.second, Qt::red, "");
+    }
+
+    void drawVoid(std::pair<int, int> voidPos) {
+        ChangeColor(voidPos.first, voidPos.second, Qt::black, "");
+    }
+
     void showGameOverMessage(const QString& message) {
-        // Stop the game timer
         timer->stop();
-
-        // Show a QMessageBox with the game over message
         QMessageBox gameOverMessageBox;
         gameOverMessageBox.setText(message + "\nPress Space to restart...");
         gameOverMessageBox.setWindowTitle(message == "Congratulations! You win!"
