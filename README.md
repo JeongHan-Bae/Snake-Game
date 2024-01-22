@@ -10,37 +10,19 @@ In this version, the Snake-Game has been adapted to utilize QMake for streamline
 
 ### Note on Qt Framework Enhancement
 
-The Qt visualization has been enhanced with the utilization of QMake. The project now includes a QMake-built executable (`SnakeGame_QVersion.exe`) for playing the game. Ensure that the executable is well-connected to all the necessary C++ and Qt DLLs. You can either place it in a folder with all the required files or add the paths to the system.
+The Qt visualization has been enhanced with the utilization of QMake. The project now includes a QMake-built executable (`QSnakeGame.exe`) for playing the game.
+
+Ensure that the executable is well-connected to all the necessary C++ and Qt DLLs. You can either place it in a folder with all the required files or add the paths to the system.
 
 ## Usage
 
-1. **Clone the Repository:**
-   Clone the repository to your local machine:
+### Downloading the Release (QV1.1.0)
 
-   ```bash
-   git clone https://github.com/your-username/your-repo.git
-   ```
+We offer a release (`qv1.1.0`) for easy access. Users can download the source files for this branch without the need for cloning. The release includes all necessary files to build the project with Qt or to launch the pre-built executable (`QSnakeGame.exe`).
 
-2. **Switch to the QMake-Snake-Game Branch:**
-   Change into the repository directory and switch to the QMake-Snake-Game branch:
+### Play the Game
 
-   ```bash
-   cd your-repo
-   git checkout QMake-Snake-Game
-   ```
-
-3. **Build and Run the QMake Version:**
-   Navigate to the Qt source folder containing all the source files. Build and run the QMake application using the provided `main` function in `SnakeGame_QVersion/main.cpp`:
-
-   ```bash
-   cd SnakeGame_QVersion
-   qmake
-   make
-   ./SnakeGame_QVersion
-   ```
-
-4. **Play the Game:**
-   Enjoy playing Snake-Game QVersion 1.1.0!
+Enjoy playing Snake-Game QVersion 1.1.0!
 
 ## Cross-Platform Compatibility
 
@@ -57,6 +39,3 @@ For cross-platform compatibility and integration into non-Qt implementations or 
 Snake-Game QVersion 1.1.0 is distributed under the [MIT License](LICENSE). Feel free to use it, and for any questions or suggestions, please contact the author at mastropseudo@gmail.com.
 
 Explore and adapt the Snake game to suit your needs, whether in a Qt environment or in other platforms and languages!
-```
-
-Make sure to replace `your-username` and `your-repo` with your GitHub username and repository name. Additionally, adjust the paths and commands based on your actual project structure and file locations.
