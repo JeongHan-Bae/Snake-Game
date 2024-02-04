@@ -25,24 +25,66 @@ Snake-Game
 The `Snaky` library provides interfaces for controlling the snake, managing game state, and retrieving positions. Below are the key functions and types offered by the `Snaky` library:
 
 - **C++ Interface**:
-  - `Snaky(int initialX, int initialY, int size, const std::pair<int, int>& initialDirection)`: Constructor to create a new snake instance with the specified initial position, size, and direction.
-  - `bool turn(const std::pair<int, int>& newDirection)`: Turns the snake in the specified direction.
-  - `MoveResult nextStep()`: Moves the snake one step forward and returns the result.
-  - `std::pair<int, int> getApplePosition() const`: Retrieves the position of the apple.
-  - `std::pair<int, int> getHeadPosition() const`: Retrieves the position of the snake's head.
-  - `void getSnakePositions(int*& positionsArray, int& arrayLength) const`: Retrieves an array of positions occupied by the snake.
-  
-  **Note**: The function getSnakePositions() has a time complexity of O(n), while all other operations are of complexity O(1).
-  It is provided as an optional function for easy front-end development. For improved time performance, consider using a linked list to store the snake positions in the front end.
+  - ```cpp
+    Snaky(int initialX, int initialY, int size, const std::pair<int, int>& initialDirection)
+    ```
+    Constructor to create a new snake game instance with the specified initial position, grid size, and direction.
+  - ```cpp
+    bool turn(const std::pair<int, int>& newDirection)
+    ```
+    Turns the snake in the specified direction.
+  - ```cpp
+    MoveResult nextStep()
+    ```
+    Moves the snake one step forward and returns the result.
+  - ```cpp
+    std::pair<int, int> getApplePosition() const
+    ```
+    Retrieves the position of the apple.
+  - ```cpp
+    std::pair<int, int> getHeadPosition() const
+    ```
+    Retrieves the position of the snake's head.
+  - ```cpp
+    void getSnakePositions(int*& positionsArray, int& arrayLength) const
+    ```
+    Retrieves an array of positions occupied by the snake.
+
+    **Note**: This function has a time complexity of `O(n)`, while all other operations are of complexity `O(1)`.
+    It is provided as an optional function for easy front-end development. For improved time performance, consider using a linked list to store the snake positions in the front end.
 
 - **C Interface**:
-  - `SnakyHandle Snaky_create(int initialX, int initialY, int size, int initialDirectionX, int initialDirectionY)`: Creates a new snake instance with the specified parameters and returns a handle to it.
-  - `void Snaky_destroy(SnakyHandle handle)`: Destroys the snake instance.
-  - `int Snaky_turn(SnakyHandle handle, int newDirectionX, int newDirectionY)`: Turns the snake with the specified direction.
-  - `int Snaky_nextStep(SnakyHandle handle)`: Moves the snake one step forward.
-  - `void Snaky_getApplePosition(SnakyHandle handle, int* x, int* y)`: Retrieves the position of the apple.
-  - `void Snaky_getHeadPosition(SnakyHandle handle, int* x, int* y)`: Retrieves the position of the snake's head.
-  - `void Snaky_getSnakePositions(SnakyHandle handle, int** positionsArray, int* arrayLength)`: Retrieves an array of positions occupied by the snake.
+  - ```c
+    SnakyHandle Snaky_create(int initialX, int initialY, int size, int initialDirectionX, int initialDirectionY)
+    ```
+    Creates a new snake game instance with the specified parameters and returns a handle to it.
+  - ```c
+    void Snaky_destroy(SnakyHandle handle)
+    ```
+    Destroys the snake game instance.
+  - ```c
+    int Snaky_turn(SnakyHandle handle, int newDirectionX, int newDirectionY)
+    ```
+    Turns the snake with the specified direction.
+  - ```c
+    int Snaky_nextStep(SnakyHandle handle)
+    ```
+    Moves the snake one step forward.
+  - ```c
+    void Snaky_getApplePosition(SnakyHandle handle, int* x, int* y)
+    ```
+    Retrieves the position of the apple.
+  - ```c
+    void Snaky_getHeadPosition(SnakyHandle handle, int* x, int* y)
+    ```
+    Retrieves the position of the snake's head.
+  - ```c
+    void Snaky_getSnakePositions(SnakyHandle handle, int** positionsArray, int* arrayLength)
+    ```
+    Retrieves an array of positions occupied by the snake.
+    
+    **Note**: This function has a time complexity of `O(n)`, while all other operations are of complexity `O(1)`.
+    It is provided as an optional function for easy front-end development. For improved time performance, consider using a linked list to store the snake positions in the front end.
 
 These interfaces allow easy integration of the snake logic into various front-end implementations, providing flexibility and convenience for developers.
 
