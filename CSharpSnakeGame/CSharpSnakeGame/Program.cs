@@ -106,48 +106,38 @@ namespace CSharpSnakeGame
                 if (res == MoveResult.Win)
                 {
                     msg = "WIN\nPress Any Key to Quit";
-                    UpdateHead();
-                    _grid[_headPosition.First,_headPosition.Second] = _headChar; // Set head char
                     _gameOver = true;
                 }
                 else if (res == MoveResult.Wall || res == MoveResult.Self)
                 {
                     msg = "LOST: " + (res == MoveResult.Wall ? "Hit the Wall" : "Bit Yourself") + "\nPress Any Key to Quit";
-                    UpdateHead();
-                    _grid[_headPosition.First,_headPosition.Second] = _headChar; // Set head char
                     _gameOver = true;
                 }
-
-                // Update head position and snake positions
-                _headPosition = _snaky.GetHeadPosition();
-                if (res == MoveResult.Apple)
+                else
                 {
-                    
+                    // Update head position and snake positions
+                    _headPosition = _snaky.GetHeadPosition();
+                    // Set previous head to body
                     _grid[prev.First,prev.Second] = BlockChar; // Set prev char
                     _colors[prev.First,prev.Second] = SnakeColor; // Set prev color
                     SnakePositions.AddLast(_headPosition);
-                    UpdateHead();
-                    _grid[_headPosition.First,_headPosition.Second] = _headChar; // Set head char
-                    _colors[_headPosition.First,_headPosition.Second] = HeadColor; // Set head color
+                }
+                
+                if (res == MoveResult.Apple)
+                {
                     // Renew apple position
                     RenewApplePosition();
-                    // Clear the console screen and visualize the game
                 }
                 else if (res == MoveResult.Void)
                 {
-                    
-                    _grid[prev.First,prev.Second] = BlockChar; // Set prev char
-                    _colors[prev.First,prev.Second] = SnakeColor; // Set prev color
+                    // Clear the previous tail
                     _grid[tail.First,tail.Second] = BlockChar; // Set void char
                     _colors[tail.First,tail.Second] = EmptyColor; // Set void color
-                    SnakePositions.AddLast(_headPosition);
                     SnakePositions.RemoveFirst();
-                    UpdateHead();
-                    _grid[_headPosition.First,_headPosition.Second] = _headChar; // Set head char
-                    _colors[_headPosition.First,_headPosition.Second] = HeadColor; // Set head color
-                    // Clear the console screen and visualize the game
-                    
                 }
+                UpdateHead();
+                _grid[_headPosition.First,_headPosition.Second] = _headChar; // Set head char
+                _colors[_headPosition.First,_headPosition.Second] = HeadColor; // Set head color
                 Console.Clear();
                 VisualizeGame();
                 Console.WriteLine(msg);
