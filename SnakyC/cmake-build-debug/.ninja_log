@@ -1,0 +1,5 @@
+# ninja log v5
+1	812	7287775363381499	CMakeFiles/Snaky_wrapper.dir/snaky_wrapper.cpp.obj	50515f2256e96b27
+8	1129	7287775366561055	CMakeFiles/Snaky_wrapper.dir/SnakyImpl.cpp.obj	87b09377091804a8
+1129	1358	7287775368815356	libSnaky_wrapper.dll	45e396af15fab891
+1129	1358	7287775368815356	libSnaky_wrapper.dll.a	45e396af15fab891
