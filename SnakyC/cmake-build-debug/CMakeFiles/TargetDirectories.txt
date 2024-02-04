@@ -1,3 +1,0 @@
-D:/WorkSpace/SnakyC/cmake-build-debug/CMakeFiles/Snaky_wrapper.dir
-D:/WorkSpace/SnakyC/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/WorkSpace/SnakyC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
